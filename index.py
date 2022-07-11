@@ -34,9 +34,9 @@ def Enviar():
                     ErrorLbl["text"] = "" 
                     web.open("https://web.whatsapp.com/send?phone=#+52"+numero+"#")
                     sleep(5)
-                    for i in range(6):
-                        pyautogui.typewrite(mensaje)
-                        pyautogui.press("enter")
+                    for i in mensaje:
+                        pyautogui.typewrite(str(i))
+                    pyautogui.press("enter")
                 else:
                     ErrorLbl["text"] = "Numero invalido" 
             else:
@@ -76,14 +76,14 @@ TextoEncriptado = tkinter.Entry(ventana)
 TextoEncriptado.grid(row = 1, column = 2)
 
 ErrorLblVtn = tkinter.Label(ventana)
-ErrorLblVtn.place(x = 100, y = 50)
+ErrorLblVtn.place(x = 200, y = 120)
 
 EncriptarBtn = tkinter.Button(ventana, text = "Encriptar", command = lambda: GetText())
 EncriptarBtn.grid(row = 2, column = 1, pady = 50, padx = 20)
-EncriptarBtn.place(x = 150, y = 50)
+EncriptarBtn.place(x = 210, y = 70)
 
 EnviarBtn = tkinter.Button(ventana, text = "Enviar", command = lambda: Enviar())
 EnviarBtn.grid(row = 2, column = 1)
-EnviarBtn.place(x = 250, y = 50)
+EnviarBtn.place(x = 320, y = 70)
 
 ventana.mainloop()
