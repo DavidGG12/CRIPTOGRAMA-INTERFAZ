@@ -33,7 +33,8 @@ def Enviar():
                 if(contador == 10):
                     ErrorLbl["text"] = "" 
                     web.open("https://web.whatsapp.com/send?phone=#+52"+numero+"#")
-                    sleep(5)
+                    enviar.destroy()
+                    sleep(10)
                     for i in mensaje:
                         pyautogui.typewrite(str(i))
                     pyautogui.press("enter")
@@ -47,6 +48,8 @@ def Enviar():
         enviar.title("Generador de Criptogramas")
         enviar.iconbitmap('C:\\Users\\alien\\OneDrive\\Documentos\\Programacion\\CRIPTOGRAMA-INTERFAZ\\img\\ico.ico')
         
+        TextoEncriptado.delete(0, 3000)
+
         NumeroLbl = tkinter.Label(enviar, text = "Digite el numero a enviar por whatsapp:")
         NumeroLbl.grid(row = 0, column = 0)
         ErrorLbl = tkinter.Label(enviar)
