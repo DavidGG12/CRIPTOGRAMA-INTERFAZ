@@ -1,92 +1,33 @@
-from msilib.schema import Error
 import tkinter
 from typing import Text
 from sympy import public
-from encriptar import Encriptar
+from interfaces import encriptar_interface, desencriptar_interface
+from encriptar import Encriptar, Desencriptar
 from numeros_letras import Verificar
 import webbrowser as web
 from time import sleep
 import pyautogui
-
-mensaje = ""
-
-def GetText():
-    cadena = TextoOriginal.get()
-    cadena_encriptada = Encriptar(cadena)
-    TextoEncriptado.insert(0, cadena_encriptada)
-
-def Enviar():
-    if not TextoEncriptado.get():
-        ErrorLblVtn["text"] = "No se ha encriptado nada."
-    else:
-        mensaje = TextoEncriptado.get()
-        ErrorLblVtn["text"] = ""
-
-        def GetNumero():
-            numero = NumeroTxt.get()
-            bandera = Verificar(numero)
-
-            if(bandera == False):
-                contador = 0
-                for i in numero:
-                    contador = contador + 1
-                if(contador == 10):
-                    ErrorLbl["text"] = "" 
-                    web.open("https://web.whatsapp.com/send?phone=#+52"+numero+"#")
-                    enviar.destroy()
-                    sleep(10)
-                    for i in mensaje:
-                        pyautogui.typewrite(str(i))
-                    pyautogui.press("enter")
-                else:
-                    ErrorLbl["text"] = "Numero invalido" 
-            else:
-                ErrorLbl["text"] = "Numero no encontrado"
-            
-        enviar = tkinter.Tk()
-        enviar.geometry("500x100")
-        enviar.title("Generador de Criptogramas")
-        enviar.iconbitmap('C:\\Users\\alien\\OneDrive\\Documentos\\Programacion\\CRIPTOGRAMA-INTERFAZ\\img\\ico.ico')
+class index:
+    def main():
+        def VtnEncriptar():
+            encriptar_interface()
         
-        TextoEncriptado.delete(0, 3000)
+        def VtnDesencriptar():
+            desencriptar_interface()
 
-        NumeroLbl = tkinter.Label(enviar, text = "Digite el numero a enviar por whatsapp:")
-        NumeroLbl.grid(row = 0, column = 0)
-        ErrorLbl = tkinter.Label(enviar)
-        ErrorLbl.grid(row = 0, column = 1)
-        NumeroTxt = tkinter.Entry(enviar)
-        NumeroTxt.grid(row = 1, column = 0)
-        EnviarBtn2 = tkinter.Button(enviar, text = "Confirmar", command = lambda: GetNumero())
-        EnviarBtn2.grid(row = 2, column = 1)
+        main = tkinter.Tk()
+        main.geometry("300x300")
+        main.title("Inicio")
+        main.iconbitmap('C:\\Users\\alien\\OneDrive\\Documentos\\Programacion\\CRIPTOGRAMA-INTERFAZ\\img\\ico.ico')
 
-        enviar.mainloop()
+        #EncriptarBtn_Design = ttk.Style()
+        #EncriptarBtn_Design.configure("Encriptar_Design", background = "white")
+        Encriptar = tkinter.Button(main, text = "Encriptar", command = lambda: VtnEncriptar())
+        Encriptar.place(x = 110, y = 30)
 
-ventana = tkinter.Tk()
-ventana.geometry("600x150")
-ventana.title("Generador de Criptogramas")
-ventana.iconbitmap('C:\\Users\\alien\\OneDrive\\Documentos\\Programacion\\CRIPTOGRAMA-INTERFAZ\\img\\ico.ico')
+        Desencriptar = tkinter.Button(main, text = "Desencriptar", command = lambda: VtnDesencriptar())
+        Desencriptar.place(x = 95, y = 120)
 
-Lbl1 = tkinter.Label(ventana, text = "Coloca el texto a encriptar:")
-Lbl1.grid(row = 0, column = 0)
+        main.mainloop()
+    main()
 
-TextoOriginal = tkinter.Entry(ventana)
-TextoOriginal.grid(row = 1, column = 0)
-
-Lbl2 = tkinter.Label(ventana, text = "Texto encriptado:")
-Lbl2.grid(row = 0, column = 2, padx = 200)
-
-TextoEncriptado = tkinter.Entry(ventana)
-TextoEncriptado.grid(row = 1, column = 2)
-
-ErrorLblVtn = tkinter.Label(ventana)
-ErrorLblVtn.place(x = 200, y = 120)
-
-EncriptarBtn = tkinter.Button(ventana, text = "Encriptar", command = lambda: GetText())
-EncriptarBtn.grid(row = 2, column = 1, pady = 50, padx = 20)
-EncriptarBtn.place(x = 210, y = 70)
-
-EnviarBtn = tkinter.Button(ventana, text = "Enviar", command = lambda: Enviar())
-EnviarBtn.grid(row = 2, column = 1)
-EnviarBtn.place(x = 320, y = 70)
-
-ventana.mainloop()
